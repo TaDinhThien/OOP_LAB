@@ -7,7 +7,7 @@ public class DigitalVideoDisc {
     private String director;
     private int length;
     private float cost;
-    private int id;
+    private final int id;
 
     // Constructors
     public DigitalVideoDisc(String title) {
