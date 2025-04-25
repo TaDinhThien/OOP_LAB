@@ -1,12 +1,10 @@
 package hust.soict.hedspi.aims.cart;
+import hust.soict.hedspi.aims.media.Media;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-
 import javax.naming.LimitExceededException;
-
-import hust.soict.hedspi.aims.media.Media;
 public class Cart {
     
     public static final int MAX_NUMBERS_ORDERED = 20;

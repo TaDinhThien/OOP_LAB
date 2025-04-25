@@ -1,13 +1,12 @@
 package hust.soict.hedspi.aims.media;
 
+import hust.soict.hedspi.aims.exception.PlayerException;
 import java.util.*;
 
-import hust.soict.cybersec.aims.exception.PlayerException;
-
-public class CompactDisc extends Media implements Playable {
+public class CompactDisc extends Media {
 
     private String artist;
-    private List<Track> tracks = new ArrayList<Track>();; 
+    private final List<Track> tracks = new ArrayList<>();; 
 
     // Getter method
     public String getArtist() {
@@ -71,6 +70,7 @@ public class CompactDisc extends Media implements Playable {
     }
 
 
+    @Override
     public String playGUI() throws PlayerException {
         if(this.getLength() > 0) {
             String output =  "Playing CD: " + this.getTitle() + "\n" + 

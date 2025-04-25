@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Book extends Media {
     
-    private List<String> authors = new ArrayList<String>();
+    private final List<String> authors = new ArrayList<>();
     
     // Constructor 
     public Book(String title) {

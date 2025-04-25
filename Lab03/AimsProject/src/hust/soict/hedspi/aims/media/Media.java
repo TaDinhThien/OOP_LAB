@@ -1,19 +1,17 @@
 package hust.soict.hedspi.aims.media;
 
+import hust.soict.hedspi.aims.exception.PlayerException;
 import java.time.Duration;
 import java.util.Comparator;
 
-import hust.soict.cybersec.aims.exception.PlayerException;
-
-public abstract class Media implements Comparable<Media> {
+public abstract class Media implements Comparable<Media>, Playable {
 
     public static final Comparator<Media> COMPARE_BY_TITLE_COST = new MediaComparatorByTitleCost();
     public static final Comparator<Media> COMPARE_BY_COST_TITLE = new MediaComparatorByCostTitle();
 
     
     private static int nbMedia = 0;
-    private int id;
-
+    private final int id;
     private String title;
     private String category;
     private float cost;
@@ -59,6 +57,7 @@ public abstract class Media implements Comparable<Media> {
         return this.getTitle().toLowerCase().contains(title.toLowerCase());
     }
 
+    @Override
     public void play() {
         System.out.println("Playing media");
     }
@@ -80,7 +79,12 @@ public abstract class Media implements Comparable<Media> {
         if (!(obj instanceof Media)) {
             return false;
         }
-        return ((Media)obj).getTitle() == this.getTitle();
+        return this.getTitle() != null && this.getTitle().equals(((Media)obj).getTitle());
+    }
+    
+    @Override
+    public int hashCode() {
+        return getTitle() == null ? 0 : getTitle().hashCode();
     }
 
     @Override
@@ -94,10 +98,6 @@ public abstract class Media implements Comparable<Media> {
     @Override
     public int compareTo(Media other) {
         int titleComparison = this.getTitle().compareTo(other.getTitle());
-        if (titleComparison != 0) {
-            return titleComparison;
-        } else {
-            return Double.compare(this.getCost(), other.getCost());
-        }
+        return titleComparison != 0 ? titleComparison : Double.compare(this.getCost(), other.getCost());
     }
 }
