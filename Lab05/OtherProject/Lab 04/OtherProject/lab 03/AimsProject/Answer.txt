@@ -1,0 +1,44 @@
+**Part14
+Which classes are aggregates of other classes? Checking all constructors of whole classes if they initialize for their parts? (Những lớp nào là lớp tổng hợp của các lớp khác? Hãy kiểm tra tất cả các hàm khởi tạo của lớp tổng thể xem chúng có khởi tạo cho các phần của mình không?)
+- Cart.java (hust.soict.hedspi.aims.cart) contains a list of Media items
+- Store.java (hust.soict.hedspi.aims.store) aggregates Media items it sells.
+- CompactDisc.java (hust.soict.hedspi.aims.media) contain a list of Track
+- Media.java: superclass of Book, DigitalVideoDisc, and CompactDisc.
+- Book.java, DigitalVideoDisc.java, CompactDisc.java: subclasses of Media.
+- Track.java: used inside CompactDisc.
+**Part17
+ Câu hỏi 1: Lớp nào nên implement Comparable?(What class should implement the Comparable interface?)
+Lớp Media nên implement Comparable<Media>
+ Câu hỏi 2: Cách viết compareTo() (In those classes, how should you implement the compareTo()method to reflect the ordering that we want?)
+//
+@Override
+public int compareTo(Media other) {
+    int titleCompare = this.getTitle().compareToIgnoreCase(other.getTitle());
+    if (titleCompare != 0) return titleCompare;
+    return Float.compare(other.getCost(), this.getCost());
+}
+//
+→ Lúc này Collections.sort(mediaList) sẽ mặc định sắp xếp theo title rồi cost giảm dần
+ Câu hỏi 3: Có thể có nhiều quy tắc sắp xếp không?(Can we have two ordering rules of the item (by title then cost and by cost then title) if we use this Comparable interface approach?)
+ Không, Comparable chỉ cho 1 quy tắc cố định.
+
+ Muốn nhiều quy tắc linh hoạt (title/cost...), phải dùng Comparator
+ Câu hỏi 4: Nếu DVD có quy tắc riêng biệt thì sao? (Suppose the DVDs have a different ordering rule from the other media types, that is by title, then decreasing length, then cost. How would you modify your code to allow this?)
+Sắp xếp theo: title → length giảm dần → cost
+//
+@Override
+public int compareTo(Media other) {
+    if (other instanceof DigitalVideoDisc) {
+        DigitalVideoDisc o = (DigitalVideoDisc) other;
+        int titleCompare = this.getTitle().compareToIgnoreCase(o.getTitle());
+        if (titleCompare != 0) return titleCompare;
+
+        int lengthCompare = Integer.compare(o.getLength(), this.getLength());
+        if (lengthCompare != 0) return lengthCompare;
+
+        return Float.compare(this.getCost(), o.getCost());
+    } else {
+        return super.compareTo(other); // Fallback
+    }
+}
+//

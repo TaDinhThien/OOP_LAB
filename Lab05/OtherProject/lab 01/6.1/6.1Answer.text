@@ -1,0 +1,4 @@
+
+- Khi người dùng chọn "Cancel" trong hộp thoại xác nhận (`JOptionPane.showConfirmDialog`), chương trình có thể xử lý bằng cách hiển thị thông báo “You’ve chosen: NO”, coi như người dùng đã từ chối.
+
+- Nếu muốn giới hạn hộp thoại chỉ còn hai lựa chọn, chẳng hạn như "YES" và "NO" hoặc "I do" và "I don’t", ta có thể chỉnh sửa lời gọi hàm `showConfirmDialog` bằng cách bổ sung thêm hai tham số: tiêu đề hộp thoại và kiểu lựa chọn. Cụ thể, thay vì gọi `JOptionPane.showConfirmDialog(null, "Do you want to change to the first class ticket?");`, ta thay thế bằng `JOptionPane.showConfirmDialog(null, "Do you want to change to the first class ticket?", "Confirmation", JOptionPane.YES_NO_OPTION);`. Việc này giúp hộp thoại chỉ hiển thị hai nút lựa chọn, loại bỏ nút "Cancel", 

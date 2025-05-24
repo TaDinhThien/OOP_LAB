@@ -1,0 +1,64 @@
+Question: If you create a constructor method to build a DVD by title then create a constructor method to build a DVD by category. Does JAVA allow you to do this?
+Answer:
+Java không cho phép có hai constructor chỉ với một tham số cùng kiểu dữ liệu (String), vì nó gây xung đột (ambiguity). Nếu muốn hỗ trợ khởi tạo bằng category, cần sử dụng cách đặt thêm tham số bổ sung hoặc dùng phương thức factory.
+===================================================================================================
+Question: Is JAVA a Pass by Value or a Pass by Reference programming language?
+Answer:
+Java là Pass-by-Value, không phải Pass-by-Reference
+Java luôn truyền tham số theo kiểu pass-by-value (truyền theo giá trị). Tuy nhiên, khi làm việc với đối tượng (object), nó có thể trông giống như pass-by-reference, nhưng thực tế không phải vậy.
+1. Kiểu dữ liệu nguyên thủy (int, double, boolean, v.v.)
+	-Java truyền bản sao của giá trị thực vào phương thức.
+
+	-Nếu thay đổi giá trị bên trong phương thức, nó không ảnh hưởng đến biến gốc.
+2. Đối tượng (Object)
+	-Java truyền bản sao của tham chiếu đến đối tượng.
+
+	-Nếu thay đổi thuộc tính của đối tượng, sự thay đổi sẽ phản ánh ra bên ngoài.
+
+	-Nhưng nếu thay đổi tham chiếu đến đối tượng khác, nó không ảnh hưởng đến tham chiếu ban đầu.
+=> Kết luận:
+	-Java luôn truyền theo giá trị (pass-by-value).
+
+	-Với kiểu nguyên thủy, truyền một bản sao của giá trị, nên không thể thay đổi giá trị gốc.
+
+	-Với đối tượng, truyền một bản sao của tham chiếu, nên có thể thay đổi nội dung của đối tượng nhưng không thể thay đổi tham chiếu ban đầu.
+
+=> Java KHÔNG có pass-by-reference!
+================================================================================================
+Question:
+	- After the call of swap(jungleDVD, cinderellaDVD) why does the title of these two
+objects still remain?
+Answer: 
+	Code:
+public static void swap(Object o1, Object o2) {
+    Object tmp = o1;
+    o1 = o2;
+    o2 = tmp;
+}
+Giải thích:
+Khi gọi swap(jungleDVD, cinderellaDVD), Java truyền bản sao của tham chiếu vào phương thức (o1 và o2 là các bản sao của jungleDVD và cinderellaDVD).
+
+Bên trong swap(), chỉ có các bản sao tham chiếu bị thay đổi thứ tự, nhưng các tham chiếu gốc trong main() không bị ảnh hưởng.
+
+Kết quả: jungleDVD và cinderellaDVD trong main() vẫn giữ nguyên giá trị ban đầu.
+
+=> Kết luận:
+Java truyền tham chiếu theo giá trị (pass-by-value), nên việc hoán đổi chỉ có hiệu lực trong phạm vi phương thức swap(), không ảnh hưởng đến các biến gốc trong main().
+	- After the call of changeTitle(jungleDVD, cinderellaDVD.getTitle()) why is
+the title of the JungleDVD changed?
+Answer:
+	Code:
+public static void changeTitle(DigitalVideoDisc dvd, String title) {
+    String oldTitle = dvd.getTitle();
+    dvd.setTitle(title);
+    dvd = new DigitalVideoDisc(oldTitle);
+}
+Giải thích:
+Khi gọi changeTitle(jungleDVD, cinderellaDVD.getTitle()), tham số dvd nhận bản sao của tham chiếu đến jungleDVD.
+
+Bước 1: dvd.setTitle(title); → thay đổi trực tiếp thuộc tính title của đối tượng mà dvd (cũng chính là jungleDVD) trỏ đến.
+
+Bước 2: dvd = new DigitalVideoDisc(oldTitle); → tạo một đối tượng mới nhưng chỉ thay đổi tham chiếu của dvd trong phương thức, không ảnh hưởng đến jungleDVD trong main().
+
+=> Kết luận:
+Việc thay đổi thuộc tính của đối tượng sẽ có hiệu lực vì dvd và jungleDVD trỏ đến cùng một đối tượng ban đầu. Tuy nhiên, việc gán một đối tượng mới cho dvd chỉ thay đổi tham chiếu trong phương thức, không ảnh hưởng đến jungleDVD trong main().

@@ -1,0 +1,28 @@
+Khi Nào Nên Sử Dụng Accessor Methods (Getter Methods)?
+Answer:
+1. Khi Cần Cung Cấp Quyền Truy Cập Chỉ Đọc
+-Nếu muốn cho phép các lớp bên ngoài đọc một thuộc tính nhưng không được sửa đổi nó, hãy sử dụng getter.
+
+-Điều này giúp bảo vệ tính toàn vẹn của dữ liệu.
+
+2. Khi Cần Đảm Bảo Tính Đóng Gói (Encapsulation)
+-Đóng gói là một trong những nguyên tắc quan trọng của Lập trình Hướng Đối tượng (OOP).
+
+-Thay vì cho phép truy cập trực tiếp vào thuộc tính, chỉ cung cấp quyền truy xuất thông qua getter.
+
+-Điều này giúp ngăn chặn việc thay đổi dữ liệu ngoài ý muốn.
+
+3. Khi Cần Kiểm Tra hoặc Xử Lý Dữ Liệu Trước Khi Trả Về
+-Đôi khi, cần thực hiện các thao tác như kiểm tra dữ liệu, định dạng hoặc tính toán trước khi trả về giá trị.
+
+-Getter cho phép kiểm soát cách dữ liệu được truy xuất.
+
+4. Khi Làm Việc Với Các Framework Hoặc Công Cụ Yêu Cầu Getter
+-Nhiều framework như Hibernate, Spring, ORM tools yêu cầu sử dụng getter để hoạt động đúng cách.
+
+-Một số thư viện phụ thuộc vào getter để xử lý dữ liệu (ví dụ: Jackson trong Java để JSON serialization/deserialization).
+
+5. Khi Trả Về Đối Tượng Thông Qua Một Interface
+-Nếu một lớp triển khai một interface, nó thường cần cung cấp getter để truy xuất thuộc tính theo cách có tổ chức.
+
+-Điều này đảm bảo rằng các lớp khác có thể lấy dữ liệu một cách nhất quán.
