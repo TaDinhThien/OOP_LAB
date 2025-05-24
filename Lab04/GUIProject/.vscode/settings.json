@@ -1,5 +1,0 @@
-// filepath: d:\Lab\Lab03\GUIProject\.vscode\settings.json
-{
-  "java.project.sourcePaths": ["src"],
-  "java.project.outputPath": "bin" // hoặc thư mục khác nếu bạn muốn xuất file .class vào thư mục khác
-}
